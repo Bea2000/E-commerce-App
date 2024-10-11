@@ -1,55 +1,58 @@
-# COMO CORRER LA APLICACIÓN
+# E-commerce
 
-## Requisitos
-- Tener instalado Docker para poder correr contenedores
+E-commerce is a web application that allows users to create a random shopping cart by fetching products from a dummy JSON API. Users can modify the quantity of items, finalize their purchases, and get shipping quotes. The app checks whether delivery is possible and provides alerts or calculates shipping costs accordingly.
 
-### Guía para Linux
-1. Setear docker `apt` repository
-```bash
-    # Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
+## Table of Contents
 
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-```
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
 
-2. Instalar paquetes de docker
-```bash
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
+## Project Overview
 
-3. Comprobar que docker está instalado
-```bash
-sudo service docker start
-sudo docker run hello-world
-```
+E-commerce provides a simple interface where users can:
 
-4. Recomiendo descargar la aplicacón [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+1. Generate a random shopping cart.
+2. Adjust the quantity of each product in the cart.
+3. Finalize their purchase.
+4. Get a shipping quote, where the system checks if delivery is possible and provides the cost if it is.
 
-5. Linkear con WSL2 en settings de Docker Desktop
+The product information (name, price, description) is fetched from the [dummyjson API](https://dummyjson.com/products), and shipping validation is done based on available stock.
 
-## Correr la aplicación
+## Features
 
-Simplemente ejecutar el comando
-```bash
-docker compose up
-```
-y esperar a que se descarguen las imágenes y se levanten los contenedores.
+- **Random Cart Generation**: Create a cart with random items and quantities from the product catalog.
+- **Product Details**: Display product information including name, price, and description.
+- **Editable Quantities**: Modify the quantity of each item before finalizing the purchase.
+- **Shipping Quotes**: Calculate and display shipping costs based on stock availability.
+- **Alerts**: Inform the user if delivery is not possible and if random cart was generated.
 
-# Supuestos Realizados
-1. El botón de `Generar Carrito` genera un carro de largo aleatorio con productos aleatorios. El largo va desde 1 hasta la cantidad de productos totales.
-2. El botón de `Finalizar Compra` solo aparece si se generó un carro aleatorio de compras.
-3. Decidí agregar los detalles de **nombre**, **precio** y **descripción** para cada producto en el carro.
-4. Setee una cantidad de **1** para todos los productos en el carro con posibilidad de que el usuario pudiera modificarlo.
-5. Entendí que el botón de `Cotizar Despacho` hace un llamado a la función del **backend** y retorna un mensaje de éxito o error según el *real stock*.
-6. Todos los valores fueron obtenidos de la api `https://dummyjson.com/products`
+## Tech Stack
 
-Espero les guste la aplicación y cualquier duda o sugerencia, no duden en contactarme. ✨😀# nomad-ecommerce
+- **Frontend**: Next.js
+- **Backend**: Node.js with Express
+- **Database**: Sequelize (ORM)
+- **Docker**: Containerization for both frontend and backend services
+
+## Prerequisites
+
+- **Docker**: Ensure Docker is installed to run the application in containers.
+
+## Setup Instructions
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/your-username/repo-name.git
+    cd repo-name
+    ```
+
+2. Build and run the Docker containers:
+
+    ```bash
+    docker compose up
+    ```
+
+3. Access the application at `http://localhost:3000`
